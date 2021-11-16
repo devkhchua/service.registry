@@ -1,10 +1,17 @@
 pipeline {
+    environment {
+        imagename = "devkhchua/service.registry"
+        registryCredential = 'docker_credentials'
+        dockerImage = ''
+     }
+
     agent {
         docker {
             image 'maven:3.8.1-adoptopenjdk-11'
             args '-v /root/.m2:/root/.m2'
         }
     }
+
     stages {
         stage('Building Package') {
             steps {
@@ -18,25 +25,30 @@ pipeline {
             }
         }
 
-        stage("Building Docker Image"){
-            steps {
-                sh 'docker version'
-                sh 'docker build -t devkhchua/service.registry:latest .'
-                sh 'docker image list'
-            }
-        }
-
-        stage("Logging into Docker"){
-            steps {
-                withCredentials([string(credentialsId: 'DOCKER_PASS', variable: 'PASSWORD')]) {
-                    sh 'docker login -u devkhchua -p $PASSWORD'
+        stage('Building Docker Image') {
+            steps{
+                script {
+                  dockerImage = docker.build imagename
                 }
             }
         }
 
-        stage("Pushing into Docker"){
+        stage('Deploying Docker Image') {
             steps{
-                sh 'docker push devkhchua/service.registry:latest'
+                script {
+                  docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push("$BUILD_NUMBER")
+                     dockerImage.push('latest')
+
+                  }
+                }
+            }
+        }
+
+        stage('Removing Unused Docker Image') {
+            steps{
+                sh "docker rmi $imagename:$BUILD_NUMBER"
+                sh "docker rmi $imagename:latest"
             }
         }
     }
