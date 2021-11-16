@@ -35,7 +35,7 @@ pipeline {
             }
         }
 
-        stage("Pushinig into Docker"){
+        stage("Pushing into Docker"){
             sh 'docker push devkhchua/service.registry:latest'
         }
 
