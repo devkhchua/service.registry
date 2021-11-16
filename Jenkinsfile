@@ -7,14 +7,15 @@ pipeline {
 
      agent any
 
-    stage('Initialize')
-    {
-        def dockerHome = tool 'Docker'
-        def mavenHome  = tool 'Maven3'
-        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
-    }
+
 
     stages {
+        stage('Initialize') {
+                def dockerHome = tool 'Docker'
+                def mavenHome  = tool 'Maven3'
+                env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+        }
+
         stage('Building Package') {
             steps {
                 sh 'mvn clean package'
