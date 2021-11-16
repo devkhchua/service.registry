@@ -9,9 +9,11 @@ pipeline {
     stages {
         stage('Initialize') {
             steps{
-                def dockerHome = tool 'Docker'
-                def mavenHome  = tool 'Maven3'
-                env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+                script{
+                    def dockerHome = tool 'Docker'
+                    def mavenHome  = tool 'Maven3'
+                    env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+                }
             }
         }
 
