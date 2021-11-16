@@ -5,11 +5,11 @@ pipeline {
         dockerImage = ''
      }
 
-    agent {
-        docker {
-            image 'maven:3.8.1-adoptopenjdk-11'
-            args '-v /root/.m2:/root/.m2'
-        }
+    stage('Initialize')
+    {
+        def dockerHome = tool 'Docker'
+        def mavenHome  = tool 'Maven3'
+        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
     }
 
     stages {
