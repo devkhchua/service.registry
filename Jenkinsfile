@@ -24,20 +24,25 @@ pipeline {
         }
 
         stage("Building Docker Image"){
-            sh 'docker version'
-            sh 'docker build -t devkhchua/service.registry:latest .'
-            sh 'docker image list'
+            steps {
+                sh 'docker version'
+                sh 'docker build -t devkhchua/service.registry:latest .'
+                sh 'docker image list'
+            }
         }
 
         stage("Logging into Docker"){
-            withCredentials([string(credentialsId: 'DOCKER_PASS', variable: 'PASSWORD')]) {
-                sh 'docker login -u devkhchua -p $PASSWORD'
+            steps {
+                withCredentials([string(credentialsId: 'DOCKER_PASS', variable: 'PASSWORD')]) {
+                    sh 'docker login -u devkhchua -p $PASSWORD'
+                }
             }
         }
 
         stage("Pushing into Docker"){
-            sh 'docker push devkhchua/service.registry:latest'
+            steps{
+                sh 'docker push devkhchua/service.registry:latest'
+            }
         }
-
     }
 }
