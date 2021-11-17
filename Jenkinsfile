@@ -60,6 +60,7 @@ pipeline {
                 sshagent(credentials : ['KUBE_MACHINE']) {
                     sh 'scp -r -o StrictHostKeyChecking=no service-registry.yaml Jordan@192.168.0.100:/C:/Coding/projects/learning-java/k8s'
                     sh 'ssh Jordan@192.168.0.100 kubectl apply -f C:/Coding/projects/learning-java/k8s/service-registry.yaml'
+                    sh 'ssh Jordan@192.168.0.100 kubectl get pods -f C:/Coding/projects/learning-java/k8s/service-registry.yaml'
                 }
             }
         }
