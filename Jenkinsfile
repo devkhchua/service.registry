@@ -10,7 +10,6 @@ pipeline {
         stage ('Deploy into Kubernetes') {
             steps{
                 sshagent(credentials : ['KUBE_MACHINE']) {
-                    sh 'ssh -o StrictHostKeyChecking=no Jordan@192.168.0.100 uptime'
                     sh 'ssh -v Jordan@192.168.0.100'
                     sh 'pwd'
                 }
