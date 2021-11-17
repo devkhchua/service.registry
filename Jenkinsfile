@@ -10,8 +10,8 @@ pipeline {
         stage ('Deploy into Kubernetes') {
             steps{
                 sshagent(credentials : ['KUBE_MACHINE']) {
-                    sh 'ssh -v -i ~/.ssh/id_rsa Jordan@192.168.0.100'
-                    sh 'ssh -v Jordan@192.168.0.100'
+                    sh 'ssh -o IdentitiesOnly=yes Jordan@192.168.0.100 uptime'
+                    sh 'dir'
                 }
             }
         }
