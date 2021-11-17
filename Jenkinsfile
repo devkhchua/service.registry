@@ -13,7 +13,7 @@ pipeline {
                 sh '''
                     [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
                     ssh-keyscan -t rsa,dsa 192.168.0.100 >> ~/.ssh/known_hosts
-                    ssh Jordan@192.168.0.100 ...
+                    ssh kube_machine ...
                 '''
                 }
             }
