@@ -10,7 +10,7 @@ pipeline {
         stage ('Deploy into Kubernetes') {
             steps{
                 sshagent(credentials : ['KUBE_MACHINE']) {
-                    sh 'ssh Jordan@192.168.0.100 dir'
+                    sh 'ssh -v Jordan@192.168.0.100'
                 }
             }
         }
