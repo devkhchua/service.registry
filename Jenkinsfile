@@ -42,8 +42,7 @@ pipeline {
                 script {
                   docker.withRegistry( '', registryCredential ) {
                     dockerImage.push("$BUILD_NUMBER")
-                     dockerImage.push('latest')
-
+                    dockerImage.push('latest')
                   }
                 }
             }
@@ -53,6 +52,15 @@ pipeline {
             steps{
                 sh "docker rmi $imagename:$BUILD_NUMBER"
                 sh "docker rmi $imagename:latest"
+            }
+        }
+
+        stage ('Deploy into Kubernetes') {
+            steps{
+                sshagent(credentials : ['KUBE_MACHINE']) {
+                    sh 'scp -r -o StrictHostKeyChecking=no service-registry.yaml Jordan@192.168.0.100:/C:/Coding/projects/learning-java/k8s'
+                    sh 'ssh Jordan@192.168.0.100 kubectl apply -f C:/Coding/projects/learning-java/k8s/service-registry.yaml'
+                }
             }
         }
     }
