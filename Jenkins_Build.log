@@ -1,0 +1,356 @@
+Started by user khchua
+Obtained Jenkinsfile from git https://github.com/devkhchua/service.registry
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/service-registry-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential GIT_CREDENTIAL
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/service-registry-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/devkhchua/service.registry # timeout=10
+Fetching upstream changes from https://github.com/devkhchua/service.registry
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+using GIT_ASKPASS to set credentials git hub credential
+ > git fetch --tags --force --progress -- https://github.com/devkhchua/service.registry +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/jenkins-automate^{commit} # timeout=10
+Checking out Revision 0bbe29290b77580c44a94a5eb83ed2041d114645 (refs/remotes/origin/jenkins-automate)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0bbe29290b77580c44a94a5eb83ed2041d114645 # timeout=10
+Commit message: "updated kubectl ssh commands"
+ > git rev-list --no-walk 2394fddd65022ea18897b92edff60042d4f03738 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Initialize)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Building Package)
+[Pipeline] sh
++ mvn clean package
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.ms.resources:service.registry >------------------
+[INFO] Building service.registry 0.0.1
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ service.registry ---
+[INFO] Deleting /var/jenkins_home/workspace/service-registry-pipeline/target
+[INFO]
+[INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ service.registry ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ service.registry ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /var/jenkins_home/workspace/service-registry-pipeline/target/classes
+[INFO]
+[INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ service.registry ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/service-registry-pipeline/src/test/resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ service.registry ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /var/jenkins_home/workspace/service-registry-pipeline/target/test-classes
+[INFO]
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ service.registry ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO]
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ service.registry ---
+[INFO] Building jar: /var/jenkins_home/workspace/service-registry-pipeline/target/service.registry-0.0.1.jar
+[INFO]
+[INFO] --- spring-boot-maven-plugin:2.5.6:repackage (repackage) @ service.registry ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.550 s
+[INFO] Finished at: 2021-11-18T16:45:08+08:00
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Running Tests)
+[Pipeline] sh
++ mvn test
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.ms.resources:service.registry >------------------
+[INFO] Building service.registry 0.0.1
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ service.registry ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ service.registry ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ service.registry ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/service-registry-pipeline/src/test/resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ service.registry ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ service.registry ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.104 s
+[INFO] Finished at: 2021-11-18T16:45:11+08:00
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Building Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
++ docker build -t devkhchua/service.registry .
+Sending build context to Docker daemon  139.5MB
+
+Step 1/5 : FROM openjdk:11
+ ---> 8c0978077f16
+Step 2/5 : ARG JAR_FILE=target/*.jar
+ ---> Running in 583bceb2242d
+Removing intermediate container 583bceb2242d
+ ---> 7a089b45f194
+Step 3/5 : COPY target/*.jar service.registry.jar
+ ---> 04851a2ac185
+Step 4/5 : ENTRYPOINT ["java", "-jar", "/service.registry.jar"]
+ ---> Running in 2df4aa035a06
+Removing intermediate container 2df4aa035a06
+ ---> e0dd881a5ccc
+Step 5/5 : EXPOSE 8761
+ ---> Running in b052909e36f0
+Removing intermediate container b052909e36f0
+ ---> f0c5efc283da
+Successfully built f0c5efc283da
+Successfully tagged devkhchua/service.registry:latest
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploying Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u devkhchua -p ******** https://index.docker.io/v1/
+WARNING: Support for the legacy ~/.dockercfg configuration file and file-format is deprecated and will be removed in an upcoming release
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /var/jenkins_home/workspace/service-registry-pipeline@tmp/35ec08a9-5de8-45c7-bc9a-f205132b6653/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
++ docker tag devkhchua/service.registry devkhchua/service.registry:latest
+[Pipeline] isUnix
+[Pipeline] sh
++ docker push devkhchua/service.registry:latest
+The push refers to repository [docker.io/devkhchua/service.registry]
+d9a9c83006db: Preparing
+a9e4c9343539: Preparing
+47ee2d19f81a: Preparing
+ab9d251e27cb: Preparing
+8a5844586fdb: Preparing
+a4aba4e59b40: Preparing
+5499f2905579: Preparing
+a36ba9e322f7: Preparing
+5499f2905579: Waiting
+a36ba9e322f7: Waiting
+a4aba4e59b40: Waiting
+a9e4c9343539: Layer already exists
+ab9d251e27cb: Layer already exists
+8a5844586fdb: Layer already exists
+47ee2d19f81a: Layer already exists
+a4aba4e59b40: Layer already exists
+5499f2905579: Layer already exists
+a36ba9e322f7: Layer already exists
+d9a9c83006db: Pushed
+latest: digest: sha256:dccc969a4338dcdea3de8bfd84bd14b7063fda9565eb9d06bdd7b687c52a7814 size: 2007
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Removing Unused Docker Image)
+[Pipeline] sh
++ docker rmi devkhchua/service.registry:latest
+Untagged: devkhchua/service.registry:latest
+Untagged: devkhchua/service.registry@sha256:dccc969a4338dcdea3de8bfd84bd14b7063fda9565eb9d06bdd7b687c52a7814
+Deleted: sha256:f0c5efc283daa78ec1eb58727c7d8014978576ace4f859c513689bead2fa51fc
+Deleted: sha256:e0dd881a5cccc51accaf05b282adec231375541bc1c3b0afe6f2b9ed116d19c7
+Deleted: sha256:04851a2ac1851d81e3db9053fae396aa1353b14c364c4b0c41389c97c2eb368e
+Deleted: sha256:6bf55ec9da1fbb98c87b7507c02db47137d3eb46fa3ca2da0fdcb1dee280223a
+Deleted: sha256:7a089b45f194f0594f265630389ae2bf4e608920f4e1f274536db5f8d9f3b83d
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy into Kubernetes)
+[Pipeline] sshagent
+[ssh-agent] Using credentials Jordan (ssh into my own desktop to run kube commands (local minikube))
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-2BBdLt7BTUxY/agent.5908
+SSH_AGENT_PID=5911
+Running ssh-add (command line suppressed)
+Identity added: /var/jenkins_home/workspace/service-registry-pipeline@tmp/private_key_7181410690391496770.key (jordan@Jordan-Desktop)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ ssh -v Jordan@192.168.0.100
+OpenSSH_8.4p1 Debian-5, OpenSSL 1.1.1k  25 Mar 2021
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+Pseudo-terminal will not be allocated because stdin is not a terminal.
+debug1: Connecting to 192.168.0.100 [192.168.0.100] port 22.
+debug1: Connection established.
+debug1: identity file /var/jenkins_home/.ssh/id_rsa type 0
+debug1: identity file /var/jenkins_home/.ssh/id_rsa-cert type -1
+debug1: identity file /var/jenkins_home/.ssh/id_dsa type -1
+debug1: identity file /var/jenkins_home/.ssh/id_dsa-cert type -1
+debug1: identity file /var/jenkins_home/.ssh/id_ecdsa type -1
+debug1: identity file /var/jenkins_home/.ssh/id_ecdsa-cert type -1
+debug1: identity file /var/jenkins_home/.ssh/id_ecdsa_sk type -1
+debug1: identity file /var/jenkins_home/.ssh/id_ecdsa_sk-cert type -1
+debug1: identity file /var/jenkins_home/.ssh/id_ed25519 type 3
+debug1: identity file /var/jenkins_home/.ssh/id_ed25519-cert type -1
+debug1: identity file /var/jenkins_home/.ssh/id_ed25519_sk type -1
+debug1: identity file /var/jenkins_home/.ssh/id_ed25519_sk-cert type -1
+debug1: identity file /var/jenkins_home/.ssh/id_xmss type -1
+debug1: identity file /var/jenkins_home/.ssh/id_xmss-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.4p1 Debian-5
+debug1: Remote protocol version 2.0, remote software version OpenSSH_for_Windows_8.1
+debug1: match: OpenSSH_for_Windows_8.1 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 192.168.0.100:22 as 'Jordan'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:MDJ1zEhi+GU69OgqLmRdZTeYgHjtuRCBRWKuzZVLCSs
+debug1: Host '192.168.0.100' is known and matches the ECDSA host key.
+debug1: Found key in /var/jenkins_home/.ssh/known_hosts:1
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /var/jenkins_home/.ssh/id_rsa RSA SHA256:mn+qgPXtUdrs4AnO7Wby+BdkLZVuvnxUhASnWXWGegI agent
+debug1: Will attempt key: /var/jenkins_home/.ssh/id_dsa
+debug1: Will attempt key: /var/jenkins_home/.ssh/id_ecdsa
+debug1: Will attempt key: /var/jenkins_home/.ssh/id_ecdsa_sk
+debug1: Will attempt key: /var/jenkins_home/.ssh/id_ed25519 ED25519 SHA256:X2BwLnwit2p8PpBxfmpLdeONMaVzun2iiL9luIWPw6Q
+debug1: Will attempt key: /var/jenkins_home/.ssh/id_ed25519_sk
+debug1: Will attempt key: /var/jenkins_home/.ssh/id_xmss
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /var/jenkins_home/.ssh/id_rsa RSA SHA256:mn+qgPXtUdrs4AnO7Wby+BdkLZVuvnxUhASnWXWGegI agent
+debug1: Server accepts key: /var/jenkins_home/.ssh/id_rsa RSA SHA256:mn+qgPXtUdrs4AnO7Wby+BdkLZVuvnxUhASnWXWGegI agent
+debug1: Authentication succeeded (publickey).
+Authenticated to 192.168.0.100 ([192.168.0.100]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Sending environment.
+debug1: Sending env LANG = C.UTF-8
+Microsoft Windows [Version 10.0.19043.1348]
+(c) Microsoft Corporation. All rights reserved.
+
+jordan@JORDAN-DESKTOP C:\Users\Jordan>debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+debug1: channel 0: free: client-session, nchannels 1
+debug1: fd 0 clearing O_NONBLOCK
+debug1: fd 2 clearing O_NONBLOCK
+Transferred: sent 3268, received 3008 bytes, in 0.0 seconds
+Bytes per second: sent 71830.8, received 66116.0
+debug1: Exit status 0
+[Pipeline] sh
++ ssh Jordan@192.168.0.100 kubectl apply -f C:/Coding/projects/learning-java/k8s/service-registry.yml
+configmap/eureka-cm created
+service/eureka created
+statefulset.apps/eureka created
+service/eureka-lb created
+[Pipeline] sh
++ ssh Jordan@192.168.0.100 kubectl delete pod eureka-0
+pod "eureka-0" deleted
+[Pipeline] sh
++ ssh Jordan@192.168.0.100 kubectl get pods
+NAME       READY   STATUS    RESTARTS   AGE
+eureka-0   1/1     Running   0          7s
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 5911 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
